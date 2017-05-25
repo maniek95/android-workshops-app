@@ -54,6 +54,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> {
         notifyDataSetChanged();
     }
 
+    public void addMoreData(@NonNull List<Question> questionList) {
+        final int currentSize = this.questionList.size();
+        this.questionList.addAll(questionList);
+        notifyItemRangeChanged(currentSize - 1, questionList.size());
+    }
+
     public interface OnQuestionClickListener {
 
         void onClick(String link);

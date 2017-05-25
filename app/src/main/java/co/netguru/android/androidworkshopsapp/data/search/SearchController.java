@@ -14,7 +14,8 @@ public class SearchController {
         searchApi = NetworkProvider.provideSearchApi();
     }
 
-    public Call<QuestionList> getQuestionsFromServer(String searchQuery) {
-        return searchApi.getQuestions(Order.DESC.getValue(), Sort.ACTIVITY.getValue(), searchQuery);
+    public Call<QuestionList> getQuestionsFromServer(String searchQuery, int pageNumber, int pageSize) {
+        return searchApi.getQuestions(Order.DESC.getValue(), Sort.ACTIVITY.getValue(),
+                searchQuery, pageNumber, pageSize);
     }
 }

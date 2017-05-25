@@ -19,10 +19,13 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import co.netguru.android.androidworkshopsapp.R;
 import co.netguru.android.androidworkshopsapp.data.search.model.Question;
+import co.netguru.android.androidworkshopsapp.feature.common.LoadMoreScrollListener;
 import co.netguru.android.androidworkshopsapp.feature.search.adapter.SearchAdapter;
 import co.netguru.android.androidworkshopsapp.feature.search.details.SearchDetailsFragment;
 
 public class SearchFragment extends Fragment implements SearchContract.View {
+
+    private static final int QUESTIONS_TO_LOAD_MORE = 10;
 
     @BindView(R.id.search_recycler_view)
     RecyclerView recyclerView;
@@ -49,7 +52,7 @@ public class SearchFragment extends Fragment implements SearchContract.View {
         super.onViewCreated(view, savedInstanceState);
         unbinder = ButterKnife.bind(this, view);
         initializeRecyclerView();
-        presenter.getQuestions();
+        presenter.getFirstQuestionsPage();
     }
 
     @Override
@@ -81,6 +84,11 @@ public class SearchFragment extends Fragment implements SearchContract.View {
     }
 
     @Override
+    public void addMoreData(List<Question> questionList) {
+        adapter.addMoreData(questionList);
+    }
+
+    @Override
     public void showErrorMessage() {
         Toast.makeText(getContext(), getString(R.string.error_getting_questions), Toast.LENGTH_SHORT).show();
     }
@@ -103,5 +111,11 @@ public class SearchFragment extends Fragment implements SearchContract.View {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
+        recyclerView.addOnScrollListener(new LoadMoreScrollListener(QUESTIONS_TO_LOAD_MORE) {
+            @Override
+            public void requestMoreData() {
+                presenter.getMoreQuestions();
+            }
+        });
     }
 }

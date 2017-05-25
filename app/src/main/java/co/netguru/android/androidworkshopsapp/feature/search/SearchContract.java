@@ -16,6 +16,8 @@ interface SearchContract {
 
         void showData(List<Question> questionList);
 
+        void addMoreData(List<Question> questionList);
+
         void showErrorMessage();
 
         void showQuestionDetails(String link);
@@ -23,7 +25,9 @@ interface SearchContract {
 
     interface Presenter extends BasePresenter {
 
-        void getQuestions();
+        void getFirstQuestionsPage();
+
+        void getMoreQuestions();
 
         void onQuestionItemClick(String link);
     }

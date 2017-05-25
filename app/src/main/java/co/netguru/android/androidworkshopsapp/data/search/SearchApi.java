@@ -9,5 +9,6 @@ public interface SearchApi {
 
     @GET("search")
     Call<QuestionList> getQuestions(@Query("order")String order, @Query("sort")String sort,
-                                    @Query("intitle") String searchQuery);
+                                    @Query("intitle") String searchQuery,
+                                    @Query("page") int pageNumber, @Query("pagesize") int pageSize);
 }

@@ -14,4 +14,8 @@ public class QuestionList {
     public List<Question> getQuestionList() {
         return questionList;
     }
+
+    public boolean isHasMore() {
+        return hasMore;
+    }
 }
