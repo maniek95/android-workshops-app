@@ -3,4 +3,5 @@
     <string name="views">views</string>
     <string name="answers">answers</string>
     <string name="asked_by">Asked by:</string>
+    <string name="error_getting_questions">Error while getting question list></string>
 </resources>

@@ -18,25 +18,28 @@ class SearchPresenter implements SearchContract.Presenter {
     private final SearchController searchController;
     private SearchContract.View view;
 
-    SearchPresenter(@NonNull SearchContract.View view) {
+    SearchPresenter(@NonNull SearchContract.View view, SearchController searchController) {
         this.view = view;
         this.view.setPresenter(this);
-        this.searchController = new SearchController();
+        this.searchController = searchController;
     }
 
     @Override
     public void getQuestions() {
+        view.showProgressBar();
         searchController.getQuestionsFromServer(MOCKED_SEARCH_QUERY).enqueue(new Callback<QuestionList>() {
             @Override
             public void onResponse(Call<QuestionList> call, Response<QuestionList> response) {
                 if (response.body() != null) {
                     view.showData(response.body().getQuestionList());
+                    view.hideProgressBar();
                 }
             }
 
             @Override
             public void onFailure(Call<QuestionList> call, Throwable t) {
                 Log.e(TAG, "Error while getting questions from server", t);
+                view.showErrorMessage();
             }
         });
     }

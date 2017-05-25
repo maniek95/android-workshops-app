@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import co.netguru.android.androidworkshopsapp.R;
+import co.netguru.android.androidworkshopsapp.data.search.SearchController;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -26,7 +27,7 @@ public class SearchActivity extends AppCompatActivity {
                     .commit();
         }
 
-        presenter = new SearchPresenter(fragment);
+        presenter = new SearchPresenter(fragment, new SearchController());
     }
 
     @Override

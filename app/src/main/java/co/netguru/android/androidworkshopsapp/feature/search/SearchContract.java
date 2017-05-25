@@ -10,7 +10,13 @@ interface SearchContract {
 
     interface View extends BaseView<Presenter> {
 
+        void showProgressBar();
+
+        void hideProgressBar();
+
         void showData(List<Question> questionList);
+
+        void showErrorMessage();
 
         void showQuestionInWebView(String link);
     }

@@ -9,6 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -24,6 +26,8 @@ public class SearchFragment extends Fragment implements SearchContract.View {
 
     @BindView(R.id.search_recycler_view)
     RecyclerView recyclerView;
+    @BindView(R.id.search_progress_bar)
+    ProgressBar progressBar;
 
     private Unbinder unbinder;
     private SearchAdapter adapter;
@@ -60,8 +64,25 @@ public class SearchFragment extends Fragment implements SearchContract.View {
     }
 
     @Override
+    public void showProgressBar() {
+        progressBar.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void hideProgressBar() {
+        progressBar.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
     public void showData(List<Question> questionList) {
         adapter.setQuestionList(questionList);
+    }
+
+    @Override
+    public void showErrorMessage() {
+        Toast.makeText(getContext(), getString(R.string.error_getting_questions), Toast.LENGTH_SHORT).show();
     }
 
     @Override
