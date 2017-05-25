@@ -2,7 +2,7 @@ package co.netguru.android.androidworkshopsapp.feature.search.details;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import co.netguru.android.androidworkshopsapp.R;
 
-public class SearchDetailsFragment extends DialogFragment {
-
-    public static final String TAG = SearchDetailsFragment.class.getSimpleName();
+public class SearchDetailsFragment extends Fragment {
 
     private static final String QUESTION_LINK = "questionLink";
 
@@ -39,8 +37,8 @@ public class SearchDetailsFragment extends DialogFragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        ButterKnife.bind(this, view);
         super.onViewCreated(view, savedInstanceState);
+        ButterKnife.bind(this, view);
         detailsView.setWebViewClient(new WebViewClient());
         detailsView.loadUrl(getArguments().getString(QUESTION_LINK));
     }

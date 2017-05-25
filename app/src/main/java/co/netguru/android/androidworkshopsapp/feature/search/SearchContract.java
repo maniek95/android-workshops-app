@@ -18,7 +18,7 @@ interface SearchContract {
 
         void showErrorMessage();
 
-        void showQuestionInWebView(String link);
+        void showQuestionDetails(String link);
     }
 
     interface Presenter extends BasePresenter {

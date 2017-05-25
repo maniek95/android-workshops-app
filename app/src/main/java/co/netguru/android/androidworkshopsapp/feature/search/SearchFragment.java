@@ -86,9 +86,11 @@ public class SearchFragment extends Fragment implements SearchContract.View {
     }
 
     @Override
-    public void showQuestionInWebView(String link) {
-        SearchDetailsFragment.newInstance(link)
-                .show(getFragmentManager(), SearchDetailsFragment.TAG);
+    public void showQuestionDetails(String link) {
+        getFragmentManager().beginTransaction()
+                .replace(R.id.search_fragment_container, SearchDetailsFragment.newInstance(link))
+                .addToBackStack(null)
+                .commit();
     }
 
     private void initializeRecyclerView() {

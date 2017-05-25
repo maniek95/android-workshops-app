@@ -46,7 +46,7 @@ class SearchPresenter implements SearchContract.Presenter {
 
     @Override
     public void onQuestionItemClick(String link) {
-        view.showQuestionInWebView(link);
+        view.showQuestionDetails(link);
     }
 
     @Override
