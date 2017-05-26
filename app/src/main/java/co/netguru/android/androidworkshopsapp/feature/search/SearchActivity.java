@@ -1,5 +1,7 @@
 package co.netguru.android.androidworkshopsapp.feature.search;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +12,11 @@ import co.netguru.android.androidworkshopsapp.data.search.SearchController;
 public class SearchActivity extends AppCompatActivity {
 
     private SearchPresenter presenter;
+
+    public static void startActivity(Context context) {
+        final Intent intent = new Intent(context, SearchActivity.class);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

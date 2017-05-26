@@ -2,6 +2,7 @@ package co.netguru.android.androidworkshopsapp.data.network;
 
 import java.io.IOException;
 
+import co.netguru.android.androidworkshopsapp.data.login.oauth.OauthApi;
 import co.netguru.android.androidworkshopsapp.data.search.SearchApi;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
@@ -15,9 +16,22 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class NetworkProvider {
 
     private static final String BASE_URL = "https://api.stackexchange.com/2.2/";
+    private static final String BASE_OAUTH_URL = "https://stackexchange.com/";
 
     public static SearchApi provideSearchApi() {
         return provideRetrofit().create(SearchApi.class);
+    }
+
+    public static OauthApi provideLoginApi() {
+        return provideLoginRetrofit().create(OauthApi.class);
+    }
+
+    private static Retrofit provideLoginRetrofit() {
+        return new Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl(BASE_OAUTH_URL)
+                .client(provideLoginOkHttpClient())
+                .build();
     }
 
     private static Retrofit provideRetrofit() {
@@ -25,6 +39,12 @@ public class NetworkProvider {
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(BASE_URL)
                 .client(provideOkHttpClient())
+                .build();
+    }
+
+    private static OkHttpClient provideLoginOkHttpClient() {
+        return new OkHttpClient.Builder()
+                .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                 .build();
     }
 

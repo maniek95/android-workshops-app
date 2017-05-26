@@ -1,5 +1,38 @@
 apply plugin: 'com.android.application'
 
+static def varToCamelCase(String envVarName) {
+    envVarName.split('_').collect { it -> it.toLowerCase().capitalize() }.join()
+}
+
+ext {
+    keyConfigPath = "${projectDir.path}/../secret.properties"
+    File keyConfigFile = file(keyConfigPath)
+    keyProps = new Properties();
+
+    if (keyConfigFile.exists()) {
+        keyProps.load(keyConfigFile.newInputStream())
+    } else {
+        throw new FileNotFoundException("File $keyConfigPath not found")
+    }
+
+    keyProperty = { var ->
+        propNameCase = varToCamelCase(var)
+        prop = keyProps[propNameCase]
+        if (prop == null || prop.toString().isEmpty())
+            throw new MissingPropertyException("Missing property $propNameCase")
+        prop
+    }
+}
+
+ext {
+    secrets = [
+            stackOverflowClientId      : keyProperty("STACKOVERFLOW_CLIENT_ID"),
+            stackOverflowClientKey     : keyProperty("STACKOVERFLOW_CLIENT_KEY"),
+            stackOverflowClientSecret  : keyProperty("STACKOVERFLOW_CLIENT_SECRET"),
+            stackOverflowOauthRedirect : keyProperty("STACKOVERFLOW_OAUTH_REDIRECT")
+    ]
+}
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
@@ -10,6 +43,11 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        buildConfigField 'String', 'STACKOVERFLOW_CLIENT_ID', '"' + secrets.stackOverflowClientId + '"'
+        buildConfigField 'String', 'STACKOVERFLOW_CLIENT_KEY', '"' + secrets.stackOverflowClientKey + '"'
+        buildConfigField 'String', 'STACKOVERFLOW_CLIENT_SECRET', '"' + secrets.stackOverflowClientSecret + '"'
+        buildConfigField 'String', 'STACKOVERFLOW_OAUTH_REDIRECT', '"' + secrets.stackOverflowOauthRedirect + '"'
     }
     buildTypes {
         release {
