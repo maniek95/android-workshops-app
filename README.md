@@ -12,4 +12,13 @@
 <!-- Put your project's name -->
 # AndroidWorkshops Application
 
-Application prepared for Android Workshops
+Application prepared for Android Workshops.
+
+## Branches
+In all branches you can find models prepared for communication with StackOverflow API
+
+1. stage1        - simple application for first time run
+2. stage2        - introduced simple MVP
+3. stage3        - final application with mocked query parameter
+4. stage3_paging - final application with pagination
+
