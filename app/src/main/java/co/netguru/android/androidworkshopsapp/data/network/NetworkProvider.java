@@ -15,6 +15,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class NetworkProvider {
 
     private static final String BASE_URL = "https://api.stackexchange.com/2.2/";
+    private static final String SITE_KEY = "site";
+    private static final String SITE_PARAM = "stackoverflow";
 
     public static SearchApi provideSearchApi() {
         return provideRetrofit().create(SearchApi.class);
@@ -43,7 +45,7 @@ public class NetworkProvider {
                 final HttpUrl originalHttpUrl = originalRequest.url();
 
                 final HttpUrl url = originalHttpUrl.newBuilder()
-                        .addQueryParameter("site", "stackoverflow")
+                        .addQueryParameter(SITE_KEY, SITE_PARAM)
                         .build();
 
                 final Request.Builder requestBuilder = originalRequest.newBuilder()
