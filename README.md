@@ -21,4 +21,5 @@ In all branches you can find models prepared for communication with StackOverflo
 2. stage2        - introduced simple MVP
 3. stage3        - final application with mocked query parameter
 4. stage3_paging - final application with pagination
+5. stage_login   - authentication with StackOverflow API
 
