@@ -21,5 +21,11 @@ In all branches you can find models prepared for communication with StackOverflo
 2. stage2        - introduced simple MVP
 3. stage3        - final application with mocked query parameter
 4. stage3_paging - final application with pagination
-5. stage_login   - authentication with StackOverflow API
+5. stage_login   - authentication with StackOverflow API <br/>
+In this stage we will need some credentials for StackOverflow API.
+Create secret.properties file in main folder and paste following contents:
+ `StackoverflowClientId=[1]
+ StackoverflowClientKey=[2]
+ StackoverflowClientSecret=[3]
+ StackoverflowOauthRedirect=[4]`
 
